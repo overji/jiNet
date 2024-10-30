@@ -141,7 +141,7 @@ class jiLLM:
     def save_chatting_history(self,chatting_history:list):
         save_path = os.path.dirname(__file__) + "/chat_history.json"
         with open(save_path,'w',encoding='utf-8') as json_file:
-            json.dump(chatting_history,json_file)
+            json.dump(chatting_history,json_file,ensure_ascii=False)
             json_file.close()
 
     def load_chatting_history(self)->list:
@@ -173,7 +173,7 @@ class jiLLM:
             history = [
                 {
                     "role": "system",
-                    "content": "你是可爱学妹小锦，可以和用户聊天"
+                    "content": "你是小锦，可以和用户聊天"
                 }
             ]
         dic = {

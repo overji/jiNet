@@ -3,6 +3,7 @@
 {% block title %}
     <title>jiNet</title>
     <link rel="stylesheet" href="/static/stylesheet/llm.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 {% endblock %}
 
 {% block mainBody %}
@@ -19,10 +20,10 @@
     <script>
         document.getElementById('llmForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting the traditional way
-        
+
             const inputMessage = document.getElementById('input_message').value;
             const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-        
+
             fetch("{% url 'process_input' %}", {
                 method: 'POST',
                 headers: {
@@ -34,9 +35,21 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('output').innerHTML = data.output;
-                document.getElementById('input_message').value = ""
+                document.getElementById('input_message').value = "";
+                const gptElements = document.querySelectorAll('.GPT');
+                gptElements.forEach(element => {
+                    element.innerHTML = marked.parse(element.innerHTML);
+                });
             })
             .catch(error => console.error('Error:', error));
         });
+        // Parse the initial content of the output element as Markdown
+        document.addEventListener('DOMContentLoaded', function() {
+            const gptElements = document.querySelectorAll('.GPT');
+            gptElements.forEach(element => {
+                element.innerHTML = marked.parse(element.innerHTML);
+            });
+        });
     </script>
+    
 {% endblock %}
