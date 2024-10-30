@@ -1,0 +1,46 @@
+#heading {
+    background-color: #1a8264;
+    font-size: 21px;
+    margin: 0;
+}
+
+#heading ul {
+    margin: 0;
+    padding: 0;
+    height: 5vh;
+    list-style-type: none;
+}
+
+#heading li {
+    float: left; /* 使 <li> 元素紧密排列 */
+    width: 100px;
+    height: 5vh;
+    text-align: center;
+    border-right: 1px white solid;
+    padding: 0;
+    margin: 0; /* 确保没有外边距 */
+    box-sizing: border-box; /* 包括边框和内边距在内 */
+}
+
+#heading a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    background-color: #1a8264;
+    text-align: center;
+    line-height: 5vh;
+    height: auto;
+    width: 100%; /* 确保 <a> 元素占满 <li> 元素的宽度 */
+    box-sizing: border-box; /* 包括边框和内边距在内 */
+    text-transform: uppercase;
+}
+
+#heading a:hover
+{
+    background-color: #156c53;
+}
+
+#heading a:active
+{
+    background-color: #47d1a5;
+}
