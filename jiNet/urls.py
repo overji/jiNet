@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("",views.index,name="home"),
-    path("llm",views.llm,name="llm")
+    path("llm",views.llm,name="llm"),
+    path('process_input/',views.process_input,name='process_input')
 ]

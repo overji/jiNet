@@ -6,7 +6,37 @@
 {% endblock %}
 
 {% block mainBody %}
-    <div class="llmForm">
-        <p></p>
+    <div id="llmForm">
+    <form method="post">
+        {% csrf_token %}
+        <label for="input_message">请输入想要获取的内容</label>
+        <br>
+        <input type="text" id="input_message">
+        <input type="submit">
+    </form>
+    <p class="output" id="output">{{ output | safe }}</p>
     </div>
+    <script>
+        document.getElementById('llmForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+        
+            const inputMessage = document.getElementById('input_message').value;
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        
+            fetch("{% url 'process_input' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ input_message: inputMessage })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerHTML = data.output;
+                document.getElementById('input_message').value = ""
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 {% endblock %}
